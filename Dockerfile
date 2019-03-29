@@ -1,14 +1,16 @@
 FROM ubuntu:trusty
 
-MAINTAINER github.com/realcundo
+ENV TOX_VERSION 3.8.3
+ENV PYTHON_VERSIONS "2.7 3.4 3.5 3.6"
+ENV GOSU_VERSION 1.11
 
-ENV TOX_VERSION 2.3.1
-ENV PYTHON_VERSIONS "2.6 2.7 3.2 3.3 3.4 3.5"
-ENV GOSU_VERSION 1.9
-
+RUN apt-get update
+RUN apt-get upgrade -y
 
 # install pythons, pypy, gosu
 COPY install-pythons.sh install-gosu.sh /
+# Install gosu to run tox as the "tox" user instead of as root.
+# https://github.com/tianon/gosu#from-debian
 
 RUN /bin/bash /install-pythons.sh \
  && /bin/bash /install-gosu.sh \

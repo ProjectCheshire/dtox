@@ -5,11 +5,13 @@ echo "tox version: $TOX_VERSION"
 
 # install pip and other packages
 apt-get update
-apt-get install -y python-pip rsync
+apt-get install -y python-pip rsync git
+
 rm -rf /var/lib/apt/lists/*
 
 # install tox
 pip install tox==$TOX_VERSION
+pip install pre-commit
 
 # set up test user
 useradd testuser -ms /bin/bash
